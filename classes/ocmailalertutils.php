@@ -4,9 +4,7 @@ use Opencontent\Opendata\Api\QueryLanguage\EzFind\QueryBuilder;
 use Opencontent\QueryLanguage\Parser;
 use Opencontent\QueryLanguage\Query;
 use Opencontent\QueryLanguage\Converter\AnalyzerQueryConverter;
-use Opencontent\Opendata\Api\EnvironmentLoader;
 use Opencontent\Opendata\Api\ContentSearch;
-use Opencontent\Opendata\Api\ClassRepository;
 
 class OCMailAlertUtils
 {
@@ -151,136 +149,6 @@ class OCMailAlertUtils
         $operators = self::conditionOperators();
 
         return $operators[$identifier]['name'];
-    }
-
-    public static function run($isQuiet = false)
-    {
-        $alerts = OCMailAlert::fetchList();
-        foreach ($alerts as $alert) {
-            $now = time();
-            $lastCall = $alert->attribute('last_call');
-            try {
-                if (!$isQuiet) {
-                    eZCLI::instance()->notice("Process {$alert->attribute('label')}");
-                    eZCLI::instance()->notice("  Last call: " . date('c', $lastCall));
-                    eZCLI::instance()->notice("  Frequency: {$alert->attribute('frequency')}");
-                }
-                if (self::checkFrequency($alert)) {
-                    if (!$isQuiet) {
-                        eZCLI::instance()->notice("  Query: {$alert->attribute('query')}: ", false);
-                    }
-                    $result = self::checkQueryResult($alert);
-                    if (!$isQuiet) {
-                        eZCLI::instance()->notice(var_export($result, 1));
-                    }
-
-                    $alert->setAttribute('last_call', $now);
-                    $alert->setAttribute('last_log', var_export($result, 1));
-                    $alert->store();
-
-                    if ($result) {
-                        eZCLI::instance()->notice("  Send mail");
-                        self::sendMail($alert);
-                    }
-                }
-            } catch (Exception $e) {
-                $alert->setAttribute('last_call', $lastCall);
-                $alert->setAttribute('last_log', 'Error: ' . $e->getMessage());
-                $alert->store();
-                if (!$isQuiet) {
-                    eZCLI::instance()->notice();
-                    eZCLI::instance()->error($e->getMessage());
-                }
-            }
-        }
-    }
-
-    private static function checkFrequency(OCMailAlert $alert)
-    {
-        $lastTime = $alert->attribute('last_call');
-        $frequency = $alert->attribute('frequency');
-        $now = mktime(0, 0, 0);
-        if ($lastTime > 0) {
-            $diff = $now - $lastTime;
-            switch ($frequency) {
-                case self::FREQUENCY_MONTHLY: {
-                    if ($diff < 2629744) {
-                        return false;
-                    }
-                }
-                    break;
-
-                case self::FREQUENCY_WEEKLY: {
-                    if ($diff < 604800) {
-                        return false;
-                    }
-                }
-                    break;
-
-                case self::FREQUENCY_DAILY: {
-                    if ($diff < 86400) {
-                        return false;
-                    }
-                }
-                    break;
-
-                default:
-                    return false;
-            }
-        }
-
-        return true;
-    }
-
-    private static function checkQueryResult(OCMailAlert $alert)
-    {
-        $query = $alert->attribute('query');
-        $contentSearch = new ContentSearch();
-        $contentSearch->setCurrentEnvironmentSettings(new DefaultEnvironmentSettings());
-
-        $searchResults = $contentSearch->search($query);
-        $resultCount = $searchResults->totalCount;
-
-        $operators = self::conditionOperators();
-        $condition = $operators[$alert->attribute('condition')];
-        $conditionFunction = $condition['call'];
-
-        return $conditionFunction((int)$resultCount, (int)$alert->attribute('condition_value'));
-    }
-
-    private static function sendMail(OCMailAlert $alert)
-    {
-        $receivers = $alert->attribute('recipients_address');
-        $subject = $alert->attribute('subject');
-        $body = $alert->attribute('body');
-
-        $ini = eZINI::instance();
-        $emailSender = $ini->variable('MailSettings', 'EmailSender');
-        if (!$emailSender) {
-            $emailSender = $ini->variable('MailSettings', 'AdminEmail');
-        }
-
-        $mail = new eZMail();
-
-        $mail->setSender($emailSender);
-
-        $i = 0;
-        foreach ($receivers as $receiver) {
-            if ($i == 0) {
-                $mail->setReceiver($receiver);
-            } else {
-                $mail->addReceiver($receiver);
-            }
-
-            $i++;
-        }
-
-        $mail->setSubject($subject);
-        $mail->setBody($body);
-
-        if (!eZMailTransport::send($mail)) {
-            throw new Exception("Can not send mail");
-        }
     }
 
 }

@@ -32,6 +32,7 @@ try {
         $alert->store();
 
         $Module->redirectToView('list');
+
         return;
     }
 

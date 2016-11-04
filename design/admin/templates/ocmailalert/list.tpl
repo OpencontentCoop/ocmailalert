@@ -36,6 +36,7 @@
                             <th>{"Last result"|i18n( 'extension/ocmailalert' )}</th>
                             <th width="1"></th>
                             <th width="1"></th>
+                            <th width="1"></th>
                         </tr>
                     </thead>
 
@@ -55,6 +56,9 @@
                                 <td>{$alert.body|wash()}</td>
                                 <td>{if $alert.last_call|gt(0)}{$alert.last_call|l10n('shortdatetime')}{/if}</td>
                                 <td>{$alert.last_log|wash()}</td>
+                                <td>
+                                    <a href="{concat( '/ocmailalert/resetalert/', $alert.id )|ezurl(no)}" title="{'Reset'|i18n( 'extension/ocmailalert' )}"><img src={'assign.gif'|ezimage} alt="{'Reset'|i18n( 'extension/ocmailalert')}" /></a>
+                                </td>
                                 <td>
                                     <a href="{concat( '/ocmailalert/addalert/', $alert.id )|ezurl(no)}" title="{'Edit'|i18n( 'extension/ocmailalert' )}"><img src={'edit.gif'|ezimage} alt="{'Edit'|i18n( 'extension/ocmailalert')}" /></a>
                                 </td>

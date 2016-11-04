@@ -31,4 +31,12 @@ $ViewList['removealert'] = array(
     'functions' => array('manage')
 );
 
+$ViewList['resetalert'] = array(
+    'script' => 'resetalert.php',
+    'params' => array('Id'),
+    'unordered_params' => array(),
+    'default_navigation_part' => 'ocmailalertnavigationpart',
+    'functions' => array('manage')
+);
+
 $FunctionList['manage'] = array();

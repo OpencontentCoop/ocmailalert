@@ -1,3 +1,3 @@
 <?php
 
-OCMailAlertUtils::run($isQuiet);
+OCMailAlertRun::runAll(!$isQuiet);
