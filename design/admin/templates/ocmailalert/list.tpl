@@ -36,7 +36,6 @@
                             <th>{"Last result"|i18n( 'extension/ocmailalert' )}</th>
                             <th width="1"></th>
                             <th width="1"></th>
-                            <th width="1"></th>
                         </tr>
                     </thead>
 
@@ -54,16 +53,20 @@
                                 <td>{$alert.recipients_address|implode(', ')}</td>
                                 <td>{$alert.subject|wash()}</td>
                                 <td>{$alert.body|wash()}</td>
-                                <td>{if $alert.last_call|gt(0)}{$alert.last_call|l10n('shortdatetime')}{/if}</td>
+                                <td>
+                                    {if $alert.last_call|gt(0)}
+                                        <p><a href="{concat( '/ocmailalert/detail/', $alert.id )|ezurl(no)}">
+                                            {$alert.last_call|l10n('shortdatetime')}
+                                        </a></p>
+                                        <a href="{concat( '/ocmailalert/reset/', $alert.id )|ezurl(no)}" title="{'Reset'|i18n( 'extension/ocmailalert' )}">[{'Reset'|i18n( 'extension/ocmailalert' )}]</a>
+                                    {/if}
+                                </td>
                                 <td>{$alert.last_log|wash()}</td>
                                 <td>
-                                    <a href="{concat( '/ocmailalert/resetalert/', $alert.id )|ezurl(no)}" title="{'Reset'|i18n( 'extension/ocmailalert' )}"><img src={'assign.gif'|ezimage} alt="{'Reset'|i18n( 'extension/ocmailalert')}" /></a>
+                                    <a href="{concat( '/ocmailalert/add/', $alert.id )|ezurl(no)}" title="{'Edit'|i18n( 'extension/ocmailalert' )}"><img src={'edit.gif'|ezimage} alt="{'Edit'|i18n( 'extension/ocmailalert')}" /></a>
                                 </td>
                                 <td>
-                                    <a href="{concat( '/ocmailalert/addalert/', $alert.id )|ezurl(no)}" title="{'Edit'|i18n( 'extension/ocmailalert' )}"><img src={'edit.gif'|ezimage} alt="{'Edit'|i18n( 'extension/ocmailalert')}" /></a>
-                                </td>
-                                <td>
-                                    <a href={concat( '/ocmailalert/removealert/', $alert.id )|ezurl} title="{'Remove alert'|i18n( 'extension/ocmailalert' )}"
+                                    <a href={concat( '/ocmailalert/remove/', $alert.id )|ezurl} title="{'Remove alert'|i18n( 'extension/ocmailalert' )}"
                                        onclick="return confirm('{'Are you sure you want to remove this alert ?'|i18n( 'extension/ocmailalert' )}')"><img src={'trash-icon-16x16.gif'|ezimage} alt="{'Remove'|i18n( 'extension/ocmailalert')}" /></a>
                                 </td>
                             </tr>

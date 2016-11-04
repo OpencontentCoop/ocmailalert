@@ -4,7 +4,7 @@
     <p>{$error_message}</p>
 </div>
 {/if}
-<form action="{concat('/ocmailalert/addalert/', cond(is_set($alert.id),$alert.id,'') )|ezurl(no)}" method="post">
+<form action="{concat('/ocmailalert/add/', cond(is_set($alert.id),$alert.id,'') )|ezurl(no)}" method="post">
     <div class="box-header">
         <div class="box-tc">
             <div class="box-ml">

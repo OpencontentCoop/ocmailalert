@@ -57,4 +57,4 @@ $Result['path'] = array(
     )
 );
 $Result['left_menu'] = 'design:ocmailalert/parts/leftmenu.tpl';
-$Result['content'] = $tpl->fetch('design:ocmailalert/addalert.tpl');
+$Result['content'] = $tpl->fetch('design:ocmailalert/add.tpl');

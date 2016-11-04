@@ -8,7 +8,7 @@
 
 <ul>
     <li><a href={'/ocmailalert/list/'|ezurl}>{'Alert list'|i18n( 'extension/ocmailalert' )}</a></li>
-    <li><a href={'/ocmailalert/addalert'|ezurl}>{'Configure new alert'|i18n( 'extension/ocmailalert' )}</a></li>
+    <li><a href={'/ocmailalert/add'|ezurl}>{'Configure new alert'|i18n( 'extension/ocmailalert' )}</a></li>
 </ul>
 
 {* DESIGN: Content END *}</div></div></div></div></div></div>

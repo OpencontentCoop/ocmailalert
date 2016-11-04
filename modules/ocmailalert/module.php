@@ -5,7 +5,7 @@ $Module = array('name' => 'ocmailalert');
 $ViewList = array();
 
 $ViewList['list'] = array(
-    'script' => 'list.php',
+    'script' => 'listalert.php',
     'params' => array(),
     'unordered_params' => array(),
     'single_post_actions' => array(),
@@ -15,7 +15,7 @@ $ViewList['list'] = array(
 );
 
 
-$ViewList['addalert'] = array(
+$ViewList['add'] = array(
     'script' => 'addalert.php',
     'params' => array('Id'),
     'unordered_params' => array(),
@@ -23,7 +23,7 @@ $ViewList['addalert'] = array(
     'functions' => array('manage')
 );
 
-$ViewList['removealert'] = array(
+$ViewList['remove'] = array(
     'script' => 'removealert.php',
     'params' => array('Id'),
     'unordered_params' => array(),
@@ -31,8 +31,16 @@ $ViewList['removealert'] = array(
     'functions' => array('manage')
 );
 
-$ViewList['resetalert'] = array(
+$ViewList['reset'] = array(
     'script' => 'resetalert.php',
+    'params' => array('Id'),
+    'unordered_params' => array(),
+    'default_navigation_part' => 'ocmailalertnavigationpart',
+    'functions' => array('manage')
+);
+
+$ViewList['detail'] = array(
+    'script' => 'detailalert.php',
     'params' => array('Id'),
     'unordered_params' => array(),
     'default_navigation_part' => 'ocmailalertnavigationpart',
