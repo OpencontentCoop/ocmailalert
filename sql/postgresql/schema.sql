@@ -16,7 +16,8 @@ CREATE TABLE ocmailalert (
   subject TEXT,
   body TEXT,
   last_call INTEGER DEFAULT 0,
-  last_log TEXT
+  last_log TEXT,
+  last_mail TEXT
 );
 
 ALTER TABLE ONLY ocmailalert ADD CONSTRAINT ocmailalert_pkey PRIMARY KEY (id);

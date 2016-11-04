@@ -87,6 +87,12 @@ class OCMailAlert extends eZPersistentObject
                     'default' => null,
                     'required' => false
                 ),
+                'last_mail' => array(
+                    'name' => 'last_mail',
+                    'datatype' => 'string',
+                    'default' => null,
+                    'required' => false
+                ),
             ),
             'keys' => array('id'),
             'increment_key' => 'id',

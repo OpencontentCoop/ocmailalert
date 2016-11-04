@@ -51,14 +51,14 @@ class OCMailAlertRun
 
                 $this->log('output', "Result: " . var_export($result, 1));
 
-                $this->alert->setAttribute('last_call', $this->now);
-                $this->alert->setAttribute('last_log', var_export($result, 1));
-                $this->alert->store();
-
                 if ($result) {
                     $this->log('output', "Send mail");
                     $this->sendMail($searchResults);
                 }
+
+                $this->alert->setAttribute('last_call', $this->now);
+                $this->alert->setAttribute('last_log', var_export($result, 1));
+                $this->alert->store();
             }
         } catch (Exception $e) {
             $this->alert->setAttribute('last_call', $lastCall);
@@ -176,6 +176,9 @@ class OCMailAlertRun
         $tpl->setVariable('language', eZLocale::currentLocaleCode());
         $body = $tpl->fetch('design:ocmailalert_mail.tpl');
         $mail->setBody($body);
+
+        $data = preg_replace('/(\r\n|\r|\n)/', "\r\n", $mail->headerText() . "\n" . $mail->body() );
+        $this->alert->setAttribute('last_mail', $data);
 
         if (!eZMailTransport::send($mail)) {
             throw new Exception("Can not send mail");
