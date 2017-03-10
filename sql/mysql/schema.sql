@@ -10,6 +10,6 @@ CREATE TABLE `ocmailalert` (
   `body` longtext,
   `last_call` int(11) DEFAULT NULL,
   `last_log` longtext,
-  `last_mail` longtext
+  `last_mail` longtext,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
