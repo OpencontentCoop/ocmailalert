@@ -57,13 +57,13 @@
                     <tr class="bglight">
                         <td>{'Send alert if result count is'|i18n( 'extension/ocmailalert' )}</td>
                         <td>
-                            <select name="condition" id="Condition">
+                            <select name="match_condition" id="Condition">
                                 {foreach $conditions as $conditionIdentifier => $conditionName}
-                                    <option value="{$conditionIdentifier}" {if and($alert, $alert.condition|eq($conditionIdentifier))}selected="selected"{/if}>{$conditionName|wash()}</option>
+                                    <option value="{$conditionIdentifier}" {if and($alert, $alert.match_condition|eq($conditionIdentifier))}selected="selected"{/if}>{$conditionName|wash()}</option>
                                 {/foreach}
                             </select>
 
-                            <input type="text" name="condition_value" value="{if $alert}{$alert.condition_value|wash()}{else}0{/if}"/>
+                            <input type="text" name="match_condition_value" value="{if $alert}{$alert.match_condition_value|wash()}{else}0{/if}"/>
                         </td>
                     </tr>
                     <tr class="bgdark">

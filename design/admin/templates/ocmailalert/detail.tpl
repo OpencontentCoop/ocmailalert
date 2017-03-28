@@ -31,7 +31,7 @@
                     <tr class="bglight">
                         <th>{'Send alert if result count is'|i18n( 'extension/ocmailalert' )}</th>
                         <td>
-                            {$alert.condition_operator|wash()} {$alert.condition_value|wash()}
+                            {$alert.condition_operator|wash()} {$alert.match_condition_value|wash()}
                         </td>
                     </tr>
                     {if $alert.last_call|gt(0)}

@@ -37,6 +37,10 @@ class OCMailAlertRun
 
     public function run()
     {
+
+        $user = eZUser::fetchByName( 'admin' );
+        eZUser::setCurrentlyLoggedInUser( $user , $user->attribute( 'contentobject_id' ) );
+
         $lastCall = $this->alert->attribute('last_call');
         try {
             $this->log('output', "Last call: " . date('c', $lastCall));
@@ -133,10 +137,10 @@ class OCMailAlertRun
         $resultCount = $searchResults->totalCount;
 
         $operators = OCMailAlertUtils::conditionOperators();
-        $condition = $operators[$this->alert->attribute('condition')];
+        $condition = $operators[$this->alert->attribute('match_condition')];
         $conditionFunction = $condition['call'];
 
-        return $conditionFunction((int)$resultCount, (int)$this->alert->attribute('condition_value'));
+        return $conditionFunction((int)$resultCount, (int)$this->alert->attribute('match_condition_value'));
     }
 
     private function sendMail(SearchResults $searchResults)

@@ -10,10 +10,12 @@ Estensione per eZPublish Legacy per impostare l'invio di mail in base al risulta
 ### Installazione
 
 * Copiare l'estensione in <ezpublish_legacy_root>/extensions
+* Attivare l'estensione a livello di backend
 * Installare la tabella sql secondo il tipo di db
 * Rigenerare gli autoloads
 * Svuotare le cache degli ini e dei template
 * Configurare il crontab perché svolga una volta al giorno l'istruzione  `php runcronjobs.php -sbackend ocmailalert` sostituendo a backend il nome del siteaccess di backend
+* Controllare che nel site.ini di backend sia correttamente configurato il SiteURL
 
 ### Utilizzo
 
