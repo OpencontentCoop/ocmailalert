@@ -43,12 +43,12 @@ class OCMailAlertUtils
             }
         }
 
-        if (!isset( $data['condition'] ) || empty( $data['condition'] )) {
-            throw new Exception("Field condition is required");
+        if (!isset( $data['match_condition'] ) || empty( $data['match_condition'] )) {
+            throw new Exception("Field match_condition is required");
         }
 
-        if (!isset( $data['condition_value'] ) || $data['condition_value'] == '') {
-            throw new Exception("Field condition_value is required");
+        if (!isset( $data['match_condition_value'] ) || $data['match_condition_value'] == '') {
+            throw new Exception("Field match_condition_value is required");
         }
 
         if (!isset( $data['recipients'] ) || empty( $data['recipients'] )) {

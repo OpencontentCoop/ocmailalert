@@ -49,7 +49,7 @@
                                         {$alert.query|wash()}
                                     </a>
                                 </td>
-                                <td>{$alert.condition_operator} {$alert.condition_value|wash()}</td>
+                                <td>{$alert.condition_operator} {$alert.match_condition_value|wash()}</td>
                                 <td>{$alert.recipients_address|implode(', ')}</td>
                                 <td>{$alert.subject|wash()}</td>
                                 <td>{$alert.body|wash()}</td>

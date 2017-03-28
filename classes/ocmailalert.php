@@ -45,14 +45,14 @@ class OCMailAlert extends eZPersistentObject
                     'default' => null,
                     'required' => true
                 ),
-                'condition' => array(
-                    'name' => 'condition',
+                'match_condition' => array(
+                    'name' => 'match_condition',
                     'datatype' => 'string',
                     'default' => null,
                     'required' => true
                 ),
-                'condition_value' => array(
-                    'name' => 'condition_value',
+                'match_condition_value' => array(
+                    'name' => 'match_condition_value',
                     'datatype' => 'string',
                     'default' => null,
                     'required' => true
@@ -171,7 +171,7 @@ class OCMailAlert extends eZPersistentObject
 
     public function getConditionOperator()
     {
-        return OCMailAlertUtils::conditionOperatorName($this->attribute('condition'));
+        return OCMailAlertUtils::conditionOperatorName($this->attribute('match_condition'));
     }
 
 }
