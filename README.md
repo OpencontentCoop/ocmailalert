@@ -15,7 +15,7 @@ Estensione per eZPublish Legacy per impostare l'invio di mail in base al risulta
 * Rigenerare gli autoloads
 * Svuotare le cache degli ini e dei template
 * Configurare il crontab perché svolga una volta al giorno l'istruzione  `php runcronjobs.php -sbackend ocmailalert` sostituendo a backend il nome del siteaccess di backend
-* Controlare che nel site.ini di backend sia correttamente configurato il SiteURL
+* Controllare che nel site.ini di backend sia correttamente configurato il SiteURL
 
 ### Utilizzo
 
